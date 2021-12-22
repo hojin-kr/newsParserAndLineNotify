@@ -1,7 +1,7 @@
 # newsParserAndLineNotify
 newsParserAndLineNotify
 
-# Stop
+# Step
 1. Search keywords sequentially with Naver search query
 2. Separate title and url
 3. Send on line
