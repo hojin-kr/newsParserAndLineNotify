@@ -21,7 +21,7 @@ keywords = os.getenv("KEYWORDS", "IBM,AWS,IDG").split(',')
 sortType = os.getenv("SORT_TYPE", 0)
 
 # Each article max count per keyword
-count = os.getenv("COUNT", 3)
+count = int(os.getenv("COUNT", 3))
 
 # -----------------------------Script---------------------------------------#
 for keyword in keywords:
