@@ -6,12 +6,12 @@ name: schedule-2
 on:
   # Allows you to run this workflow manually from the Actions tab
   schedule:
-    - cron: '10 23 * * *'
+    - cron: '0 9,23 * * *'
 env:
   TOKEN_LINE_NOTIFY: ${{ secrets.TOKEN_LINE_NOTIFY }}
-  KEYWORDS: '테슬라,애플,선데이토즈,위메이드,토스'
+  KEYWORDS: ${{ secrets.KEYWORDS_2 }}
   SORT_TYPE: '0'
-  COUNT: '3'
+  COUNT: '1'
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
