@@ -17,3 +17,8 @@ newsParserAndLineNotify
 
 
 ![image](https://user-images.githubusercontent.com/22079767/147117399-e57878d0-b4c3-4eda-8a57-229e42827bea.png)
+
+## 참조
+
+v4 spreadsheet api Ref
+https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/get
