@@ -20,5 +20,7 @@ newsParserAndLineNotify
 
 ## 참조
 
-v4 spreadsheet api Ref
+### v4 spreadsheet api Ref
 https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/get
+### gspsraed
+https://docs.gspread.org/en/latest/
