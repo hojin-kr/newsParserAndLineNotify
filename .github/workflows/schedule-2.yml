@@ -32,5 +32,8 @@ jobs:
       - name: install python module google-auth
         run: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
         
+      - name: install python module gspread
+        run: pip install gspread
+        
       - name: Run a script
         run: python naver.py
