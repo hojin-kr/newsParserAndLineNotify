@@ -25,7 +25,7 @@ env:
   SORT_TYPE: ${{ github.event.inputs.SORT_TYPE }}
   COUNT: ${{ github.event.inputs.COUNT }}
   SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}  
+  GOOGLE_APPLICATION_CREDENTIALS: ./sa.json
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -48,5 +48,8 @@ jobs:
       - name: install python module gspread
         run: pip install gspread
 
+      - name: set cred
+        run: echo $ {{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} > sa.json
+         
       - name: Run a script
         run: python naver.py
