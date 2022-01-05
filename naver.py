@@ -28,7 +28,7 @@ GOOGLE_APPLICATION_CREDENTIALS=os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "")
 def InitHeader(worksheet):
     print("InitHeader")
     worksheet.batch_update([{
-        'range': 'A1:C1',
+        'range': 'A1:D1',
         'values': [
             ["검색어", "제목", "url", "날짜"]
         ]
@@ -67,9 +67,8 @@ def GoogleSpreadSheet(keyword, dataFrame):
         worksheet = sht.worksheet(keyword)
     except:
         # 시트가 없으면 생성
-        print("Craete Sheet {keyword}")
-        worksheet= sht.add_worksheet(title=keyword, rows="100", cols="20")
-        time.sleep(5)
+        print("Craete Sheet " + keyword)
+        worksheet = sht.add_worksheet(title=keyword, rows="100", cols="20")
         InitHeader(worksheet)
     values = worksheet.get_all_values()
     # 시트의 데이터와 중복이 있는지 검사
