@@ -24,6 +24,8 @@ env:
   KEYWORDS: ${{ github.event.inputs.KEYWORDS }}
   SORT_TYPE: ${{ github.event.inputs.SORT_TYPE }}
   COUNT: ${{ github.event.inputs.COUNT }}
+  SPREADSHEET_ID: ${{ SPREADSHEET_ID }}
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ GOOGLE_APPLICATION_CREDENTIALS }}  
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
