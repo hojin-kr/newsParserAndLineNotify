@@ -13,7 +13,7 @@ env:
   KEYWORDS: ${{ secrets.KEYWORDS_2 }}
   SORT_TYPE: '0'
   COUNT: '10'
-  SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+  TOKEN_GOOGLE_SHEET: ${{ secrets.TOKEN_GOOGLE_SHEET }}
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -28,14 +28,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: install python module beautifulsoup4
-        run: pip install beautifulsoup4
-        
-      - name: install python module google-auth
-        run: pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
-        
-      - name: install python module gspread
-        run: pip install gspread
+      - name: install python module 
+        run: ./init.sh
         
       - name: Run a script
         run: python naver.py
