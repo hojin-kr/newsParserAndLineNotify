@@ -13,6 +13,8 @@ env:
   KEYWORDS: ${{ secrets.KEYWORDS_2 }}
   SORT_TYPE: '0'
   COUNT: '10'
+  SPREADSHEET_ID: ${{ SPREADSHEET_ID }}
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ GOOGLE_APPLICATION_CREDENTIALS }}
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
