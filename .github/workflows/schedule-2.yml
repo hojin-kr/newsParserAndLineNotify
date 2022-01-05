@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab
   schedule:
-    - cron: '0 9,23 * * *'
+    - cron: '0 * * * *'
 env:
   TOKEN_LINE_NOTIFY: ${{ secrets.TOKEN_LINE_NOTIFY }}
   KEYWORDS: ${{ secrets.KEYWORDS_2 }}
