@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
 import gspread
+import json
 
 # -----------------------------라인 Notify---------------------------------------#
 # lineNotify 라인 Notify에 보낼 형태로 만들어서 전송
@@ -57,7 +58,7 @@ def checkDuplicate(prev, now):
 def GoogleSpreadSheet(keyword, dataFrame):
     RANGE = '{keyword}!A1:E'
     # sheet
-    gc = gspread.service_account_from_dict(GOOGLE_APPLICATION_CREDENTIALS)
+    gc = gspread.service_account_from_dict(json.loads(GOOGLE_APPLICATION_CREDENTIALS))
     sht = gc.open_by_key(SPREADSHEET_ID)
     try:
         # 작업할 시트 조회
