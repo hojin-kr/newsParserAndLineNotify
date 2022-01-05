@@ -67,7 +67,8 @@ def GoogleSpreadSheet(keyword, dataFrame):
     except:
         # 시트가 없으면 생성
         print("Craete Sheet {keyword}")
-        worksheet = sht.add_worksheet(title=keyword, rows="100", cols="20")
+        sht.add_worksheet(title=keyword, rows="100", cols="20")
+        worksheet = sht.worksheet(keyword)
         InitHeader(worksheet)
     values = worksheet.get_all_values()
     # 시트의 데이터와 중복이 있는지 검사
