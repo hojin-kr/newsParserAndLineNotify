@@ -6,6 +6,7 @@ from google.oauth2.service_account import Credentials
 import gspread
 import json
 from datetime import datetime
+import time
 
 # -----------------------------라인 Notify---------------------------------------#
 # lineNotify 라인 Notify에 보낼 형태로 만들어서 전송
@@ -67,8 +68,8 @@ def GoogleSpreadSheet(keyword, dataFrame):
     except:
         # 시트가 없으면 생성
         print("Craete Sheet {keyword}")
-        sht.add_worksheet(title=keyword, rows="100", cols="20")
-        worksheet = sht.worksheet(keyword)
+        worksheet= sht.add_worksheet(title=keyword, rows="100", cols="20")
+        time.sleep(5)
         InitHeader(worksheet)
     values = worksheet.get_all_values()
     # 시트의 데이터와 중복이 있는지 검사
