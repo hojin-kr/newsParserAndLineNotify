@@ -5,16 +5,17 @@ from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
 import gspread
 import json
+from datetime import datetime
 
 # -----------------------------라인 Notify---------------------------------------#
 # lineNotify 라인 Notify에 보낼 형태로 만들어서 전송
-def lineNotify(keyword, title, url):
+def lineNotify(message):
     # 라인 Nofify 토큰 조회
     lineNotifyHeaders = {
         "Authorization": "Bearer " + os.getenv("TOKEN_LINE_NOTIFY")
         }
     lineNotifyDatas = {
-        "message" : "[" + keyword + "]\n" + title + "\n" + url,
+        "message" : message
     }
     requests.post(url="https://notify-api.line.me/api/notify", headers=lineNotifyHeaders, data=lineNotifyDatas)
 
@@ -28,7 +29,7 @@ def InitHeader(worksheet):
     worksheet.batch_update([{
         'range': 'A1:C1',
         'values': [
-            ["검색어", "제목", "url"]
+            ["검색어", "제목", "url", "날짜"]
         ]
     }])
 
@@ -56,8 +57,8 @@ def checkDuplicate(prev, now):
 # 3. 새로운 뉴스 데이터를 추가
 # 시트 확인해서 추가하는 작업 수행
 def GoogleSpreadSheet(keyword, dataFrame):
-    RANGE = '{keyword}!A1:E'
     # sheet
+    # gc = gspread.service_account(GOOGLE_APPLICATION_CREDENTIALS)
     gc = gspread.service_account_from_dict(json.loads(GOOGLE_APPLICATION_CREDENTIALS))
     sht = gc.open_by_key(SPREADSHEET_ID)
     try:
@@ -70,19 +71,21 @@ def GoogleSpreadSheet(keyword, dataFrame):
         InitHeader(worksheet)
     values = worksheet.get_all_values()
     # 시트의 데이터와 중복이 있는지 검사
-    dataFrame = checkDuplicate(values[1:999], dataFrame)
+    dataFrameUnique = checkDuplicate(values[1:999], dataFrame)
     # 삽입할게 1개 이상인 경우
-    if len(dataFrame) > 0:
+    if len(dataFrameUnique) - len(values[1:999]) > 0:
         # 최대 1000개까지로 기사 개수 제한
-        dataFrame = dataFrame[0:999]
+        dataFrameUnique = dataFrameUnique[0:999]
         worksheet.batch_update([{
-            'range': 'A2:C1000',
-            'values': dataFrame,
+            'range': 'A2:D1000',
+            'values': dataFrameUnique,
         }])
-
+        # 신규 기사 발생시 라인 노티
+        # lineNotify("[" + keyword +  "]\n" + dataFrame[0][1] + "\n" +  dataFrame[0][2])
 
 # worker
-def worker(keywords, sortType, count, isLineNoti):
+def worker(keywords, sortType, count):
+    today = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
     # 입력한 키워드 만큼 반복
     for keyword in keywords:
         # 네이버에 검색
@@ -98,11 +101,9 @@ def worker(keywords, sortType, count, isLineNoti):
                     # 각 요소를 선택
                     title = articles[index].select_one('a.news_tit')['title']
                     url = articles[index].select_one('a.news_tit')['href']
-                    dataFrame.append([keyword, title, url])
+                    dataFrame.append([keyword, title, url, today])
                     # 원하는 개수 만큼 기사를 가져왔는지 확인
                     _count = _count - 1
-        if isLineNoti:
-            lineNotify(keyword, title, url)
         # 구글 스프레드 시트에 최신 뉴스 추가
         GoogleSpreadSheet(keyword, dataFrame)
 
@@ -120,6 +121,4 @@ sortType = os.getenv("SORT_TYPE", 0)
 count = int(os.getenv("COUNT", 10))
 
 # worker for googlesheet
-worker(keywords, sortType, count, 0)
-# worker for line
-worker(keywords, sortType, 1, 1)
+worker(keywords, sortType, count)
