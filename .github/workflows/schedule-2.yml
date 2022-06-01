@@ -15,6 +15,7 @@ env:
   COUNT: '10'
   TOKEN_GOOGLE_SHEET: ${{ secrets.TOKEN_GOOGLE_SHEET }}
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  SLACK_WEBHOOK_KEY: ${{ secrets.SLACK_WEBHOOK_KEY }}
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
