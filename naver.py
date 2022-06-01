@@ -22,7 +22,7 @@ def lineNotify(message):
     
 def slackNofify(message):
     cmd = 'curl -X POST -H "Content-type: application/json" --data "{"text":' + message + '}" https://hooks.slack.com/services/' + os.getenv("SLACK_WEBHOOK_KEY")
-    os.systems(cmd)
+    os.system(cmd)
 
 # -----------------------------구글 스프레드 시트---------------------------------------#
 SPREADSHEET_ID = os.getenv("TOKEN_GOOGLE_SHEET", "")
