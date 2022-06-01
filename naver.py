@@ -19,6 +19,10 @@ def lineNotify(message):
         "message" : message
     }
     requests.post(url="https://notify-api.line.me/api/notify", headers=lineNotifyHeaders, data=lineNotifyDatas)
+    
+def slackNofify(message):
+    slackUrl = "https://hooks.slack.com/services/" + os.getenv("SLACK_WEBHOOK_KEY")
+    requests.post(url=slackUrl, headers="Content-type: application/json", data='{"text":"' + message + '"}')
 
 # -----------------------------구글 스프레드 시트---------------------------------------#
 SPREADSHEET_ID = os.getenv("TOKEN_GOOGLE_SHEET", "")
@@ -83,6 +87,7 @@ def GoogleSpreadSheet(keyword, dataFrame):
         }])
         # 신규 기사 발생시 라인 노티
         # lineNotify("[" + keyword +  "]\n" + dataFrame[0][1] + "\n" +  dataFrame[0][2])
+        slackNofify("[" + keyword +  "]\n" + dataFrame[0][1] + "\n" +  dataFrame[0][2])
 
 # worker
 def worker(keywords, sortType, count):
