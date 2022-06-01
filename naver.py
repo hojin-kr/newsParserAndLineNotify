@@ -22,7 +22,7 @@ def lineNotify(message):
     
 def slackNofify(message):
     slackUrl = "https://hooks.slack.com/services/" + os.getenv("SLACK_WEBHOOK_KEY")
-    requests.post(url=slackUrl, headers="Content-type: application/json", data='{"text":"' + message + '"}')
+    requests.post(url=slackUrl, data='{"text":"' + message + '"}')
 
 # -----------------------------구글 스프레드 시트---------------------------------------#
 SPREADSHEET_ID = os.getenv("TOKEN_GOOGLE_SHEET", "")
